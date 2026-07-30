@@ -58,18 +58,6 @@ topology:
 #      startup-config: ./configs/acc8.txt
       ports:
         - 2058:22
-#    acc9:
-#      kind: nokia_srsim
-#      type: ixr-e2c
-#      startup-config: ./configs/acc9.txt
-#      ports:
-#        - 2059:22
-#    acc10:
-#      kind: nokia_srsim
-#      type: ixr-r6d
-#      startup-config: ./configs/acc10.txt
-#      ports:
-#        - 2060:22
 
   links:
 #~~~~~~~~~~~~~~~~~~~~   CORE links  ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +66,7 @@ topology:
 #    - endpoints: ["p1:1/1/c4/1", "pe4:1/1/c1/1"]
 #    - endpoints: ["p2:1/1/c3/1", "pe3:1/1/c2/1"]
     - endpoints: ["p2:1/1/c4/1", "pe4:1/1/c2/1"]
+#~~~~~~~~~~~~~~~~~~~~~~   PE links  ~~~~~~~~~~~~~~~~~~~~~~~~
     - endpoints: ["pe3:1/1/c4/1", "pe4:1/1/c3/1"]
     - endpoints: ["pe5:1/1/c1/1", "p1:1/1/c5/1"]
     - endpoints: ["pe6:1/1/c2/1", "p2:1/1/c6/1"]
