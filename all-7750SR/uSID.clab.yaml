@@ -1,0 +1,124 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Cao Phuong Huy - phuong_huy.cao@nokia.com      #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+name: uSID
+prefix: ""
+mgmt:
+  network: mngt
+  ipv4-subnet: 172.50.50.0/24
+
+topology:
+  kinds:
+    nokia_srsim:
+      image: ${srsim_r26}
+      license: ${license_r26}
+      type: sr-1s
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:latest
+      type: ixr-d2l
+
+  nodes:
+
+# P routers
+    srv6-p1:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.31
+      ports:
+        - 2031:22
+#      startup-config: ./configs/srv6-p1.txt
+    srv6-p2:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.32
+#      startup-config: ./configs/srv6-p2.txt
+      ports:
+        - 2032:22
+
+    srv6-p3:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.33
+      ports:
+        - 2033:22
+#      startup-config: ./configs/srv6-p3.txt
+
+    srv6-p4:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.34
+      ports:
+        - 2034:22
+#      startup-config: ./configs/srv6-p4.txt
+
+# PE routers
+    srv6-pe5:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.35
+      ports:
+        - 2035:22
+#      startup-config: ./configs/srv6-pe5.txt
+
+    srv6-pe6:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.36
+      ports:
+        - 2036:22
+#      startup-config: ./configs/srv6-pe6.txt
+
+    srv6-pe7:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.37
+      ports:
+        - 2037:22
+#      startup-config: ./configs/srv6-pe7.txt
+
+    srv6-pe8:
+      kind: nokia_srsim
+      mgmt-ipv4: 172.50.50.38
+      ports:
+        - 2038:22
+#      startup-config: ./configs/srv6-pe8.txt
+
+# Computer - CE
+    srv6-pc:
+      kind: nokia_srlinux
+      mgmt-ipv4: 172.50.50.39
+      ports:
+        - 2039:22
+
+    # srv6-pc10:
+    #   kind: nokia_srlinux
+    #   mgmt-ipv4: 172.50.50.40
+    #   ports:
+    #     - 2040:22
+
+    # srv6-pc11:
+    #   kind: nokia_srlinux
+    #   mgmt-ipv4: 172.50.50.41
+    #   ports:
+    #     - 2041:22
+
+    # srv6-pc12:
+    #   kind: nokia_srlinux
+    #   mgmt-ipv4: 172.50.50.42
+    #   ports:
+    #     - 2042:22
+  links:
+    # Core links
+    - endpoints: ["srv6-p1:1/1/c2/1", "srv6-p2:1/1/c1/1"]
+    - endpoints: ["srv6-p1:1/1/c3/1", "srv6-p3:1/1/c1/1"]
+    - endpoints: ["srv6-p1:1/1/c4/1", "srv6-p4:1/1/c1/1"]
+    - endpoints: ["srv6-p2:1/1/c3/1", "srv6-p3:1/1/c2/1"]
+    - endpoints: ["srv6-p2:1/1/c4/1", "srv6-p4:1/1/c2/1"]
+    - endpoints: ["srv6-p3:1/1/c4/1", "srv6-p4:1/1/c3/1"]
+    # PE links
+    - endpoints: ["srv6-pe5:eth1", "srv6-p1:eth5"]
+    - endpoints: ["srv6-pe6:eth2", "srv6-p2:eth6"]
+    - endpoints: ["srv6-pe5:eth6", "srv6-pe6:eth5"]
+    - endpoints: ["srv6-pe7:eth3", "srv6-p3:eth7"]
+    - endpoints: ["srv6-pe8:eth4", "srv6-p4:eth8"]
+    - endpoints: ["srv6-pe7:eth8", "srv6-pe8:eth7"]
+    #CE links to SRL nodes
+    - endpoints: ["srv6-pe5:eth9", "srv6-pc:e1-5"]
+    - endpoints: ["srv6-pe6:eth9", "srv6-pc:e1-6"]
+    - endpoints: ["srv6-pe7:eth9", "srv6-pc:e1-7"]
+    - endpoints: ["srv6-pe8:eth9", "srv6-pc:e1-8"]
+

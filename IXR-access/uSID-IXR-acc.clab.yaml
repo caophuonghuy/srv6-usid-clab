@@ -16,33 +16,33 @@ topology:
 #~~~~~~~~~~~~~~~~~~~~ P routers  ~~~~~~~~~~~~~~~~~~~~~~~~
     p1:
       kind: nokia_srsim
-#      startup-config: ./configs/p1.txt
+      startup-config: ./configs/srv6-p1.txt
       ports:
         - 2051:22
     p2:
       kind: nokia_srsim
-#      startup-config: ./configs/p2.txt
+      startup-config: ./configs/srv6-p2.txt
       ports:
         - 2052:22
 #~~~~~~~~~~~~~~~~~~~~ PE routers  ~~~~~~~~~~~~~~~~~~~~~~~~
     pe3:
       kind: nokia_srsim
-#      startup-config: ./configs/pe3.txt
+      startup-config: ./configs/srv6-p3.txt
       ports:
         - 2053:22
     pe4:
       kind: nokia_srsim
-#      startup-config: ./configs/pe4.txt
+      startup-config: ./configs/srv6-p4.txt
       ports:
         - 2054:22
     pe5:
       kind: nokia_srsim
-#      startup-config: ./configs/pe5.txt
+      startup-config: ./configs/srv6-pe5.txt
       ports:
         - 2055:22
     pe6:
       kind: nokia_srsim
-#      startup-config: ./configs/pe6.txt
+      startup-config: ./configs/srv6-pe6.txt
       ports:
         - 2056:22
 #~~~~~~~~~~~~~~~~~~~~ Access routers  ~~~~~~~~~~~~~~~~~~~~~~~~

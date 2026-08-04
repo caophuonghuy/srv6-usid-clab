@@ -3,7 +3,7 @@ Warning: Cgroup memory limit not set or cgroups not present.
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Total Memory: 128908MB  Chassis Type: 0x5b   [ ref: 619fd8fef89f; ]
+Total Memory: 128907MB  Chassis Type: 0x5b   [ ref: 619fd8fef89f; ]
 TiMOS-B-26.3.R2 both/x86_64 Nokia 7250 IXR-e3c Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.
 Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
@@ -25,18 +25,18 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Thu Apr 30 05:29:18 2026 UTC
+Time from clock is Mon Aug  3 03:57:40 2026 UTC
 Trace memory initialised
-Initial DNS resolving preference is ipv6-first
+Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Thu Apr 30 05:29:22 UTC 2026
+Current Time: Mon Aug 03 03:57:44 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
 Loading primary configuration file "cf3:\config.cfg"
-Loaded 151 lines in 0.2 seconds from file "cf3:\config.cfg"
+Loaded 155 lines in 0.2 seconds from file "cf3:\config.cfg"
 WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli
 WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli admin-state
 WARNING: MGMT_CORE #2204: Obsolete element - configure system security aaa local-profiles profile "administrative" grpc rpc-authorization md-cli-session

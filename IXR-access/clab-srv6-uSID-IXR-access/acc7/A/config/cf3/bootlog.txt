@@ -3,7 +3,7 @@ Warning: Cgroup memory limit not set or cgroups not present.
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Total Memory: 128908MB  Chassis Type: 0x38   [ ref: 619fd8fef89f; ]
+Total Memory: 128907MB  Chassis Type: 0x38   [ ref: 619fd8fef89f; ]
 TiMOS-B-26.3.R2 both/x86_64 Nokia 7250 IXR-e2 Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.
 Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
@@ -25,18 +25,18 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Thu Apr 30 05:29:17 2026 UTC
+Time from clock is Mon Aug  3 03:57:39 2026 UTC
 Trace memory initialised
-Initial DNS resolving preference is ipv6-first
+Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Thu Apr 30 05:29:22 UTC 2026
+Current Time: Mon Aug 03 03:57:44 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
 Loading primary configuration file "cf3:\config.cfg"
-Loaded 151 lines in 0.2 seconds from file "cf3:\config.cfg"
+Loaded 155 lines in 0.2 seconds from file "cf3:\config.cfg"
 WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli
 WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli admin-state
 WARNING: MGMT_CORE #2204: Obsolete element - configure system security aaa local-profiles profile "administrative" grpc rpc-authorization md-cli-session
@@ -92,33 +92,3 @@ pcid: opt_chip 68, chip 8, pci_ver_id:dev_id:rev_id 0x14e4:0x8480:0x11, chip nam
 [SIM] successfully init'd "cmc1 packet dma ch7  ".
 [SIM] CMICx simulation successfully initialized.
 [SIM] 
- SR OS Software
- Copyright (c) Nokia 2026.  All Rights Reserved.
- 
- Trademarks
- 
- Nokia and the Nokia logo are registered trademarks of Nokia. All other
- trademarks are the property of their respective owners.
- 
- IMPORTANT: READ CAREFULLY
- 
- The SR OS Software (the "Software") is proprietary to Nokia and is subject
- to and governed by the terms and conditions of the End User License
- Agreement accompanying the product, made available at the time of your order,
- or posted on the Nokia website (collectively, the "EULA").  As set forth
- more fully in the EULA, use of the Software is strictly limited to your 
- internal use.  Downloading, installing, or using the Software constitutes
- acceptance of the EULA and you are binding yourself and the business entity
- that you represent to the EULA.  If you do not agree to all of the terms of
- the EULA, then Nokia is unwilling to license the Software to you and (a) you
- may not download, install or use the Software, and (b) you may return the
- Software as more fully set forth in the EULA.
- 
- This product contains cryptographic features and is subject to United States 
- and local country laws governing import, export, transfer and use. Delivery 
- of Nokia cryptographic products does not imply third-party authority to 
- import, export, distribute or use encryption.
- 
- If you require further assistance please contact us by sending an email
- to support@nokia.com.
-
