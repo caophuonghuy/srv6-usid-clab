@@ -1,0 +1,583 @@
+# TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
+# All rights reserved. All use subject to applicable license agreements.
+# Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
+# Configuration format version 26.3 revision 0
+
+# Generated Tue Aug  4 06:19:21 2026 UTC
+
+exit all
+configure
+#--------------------------------------------------
+echo "System Configuration"
+#--------------------------------------------------
+    system
+        name "srv6-pe7"
+        power-shelf 1
+            power-shelf-type ps-a4-shelf-dc
+            power-module 1
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 2
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 3
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 4
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            no shutdown
+        exit
+        netconf
+            listen
+                no shutdown
+            exit
+        exit
+        snmp
+            streaming
+                no shutdown
+            exit
+            packet-size 9216
+        exit
+        time
+            sntp
+                shutdown
+            exit
+            zone UTC
+        exit
+    exit
+#--------------------------------------------------
+echo "System Security Configuration"
+#--------------------------------------------------
+    system
+        security
+            profile "administrative"
+                grpc
+                    rpc-authorization
+                        gnoi-cert-mgmt-rotate permit
+                        gnoi-cert-mgmt-install permit
+                        gnoi-cert-mgmt-getcert permit
+                        gnoi-cert-mgmt-revoke permit
+                        gnoi-cert-mgmt-cangenerate permit
+                        gnoi-system-setpackage permit
+                        gnoi-system-switchcontrolprocessor permit
+                        gnoi-system-reboot permit
+                        gnoi-system-rebootstatus permit
+                        gnoi-system-cancelreboot permit
+                    exit
+                exit
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        kill-session
+                        lock
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "configure system security"
+                    action permit
+                exit
+                entry 20
+                    match "show system security"
+                    action permit
+                exit
+                entry 30
+                    match "tools perform security"
+                    action permit
+                exit
+                entry 40
+                    match "tools dump security"
+                    action permit
+                exit
+                entry 42
+                    match "tools dump system security"
+                    action permit
+                exit
+                entry 50
+                    match "admin system security"
+                    action permit
+                exit
+                entry 100
+                    match "configure li"
+                    action deny
+                exit
+                entry 110
+                    match "show li"
+                    action deny
+                exit
+                entry 111
+                    match "clear li"
+                    action deny
+                exit
+                entry 112
+                    match "tools dump li"
+                    action deny
+                exit
+                no entry 113
+            exit
+            password
+                attempts 64 time 5 lockout 10
+            exit
+            user "admin"
+                password "$2y$10$mNbyM/jhjmufcsAYWXHl..PiXKZv5po.D8rfLo5Z0dFGH5OhPTp6y"
+                access console netconf grpc
+                no restricted-to-home
+                public-keys
+                    rsa
+                        rsa-key 32 create
+                            key-value "AAAAB3NzaC1yc2EAAAADAQABAAACAQCsLhXoJkYC0zPSuPUF19kHa5+CwTQ/YWqQMmtu0YpCJEl1b6gBNbdjhoWLhloYoxHQG4zOIBTE0OtNixHxKlKy0Va0mQxWUTX61zsFeaq055PdHVdvR9BYWqJ92QFZqPBLkfpLjAwSukh2oErQFzDrQRDCTmJeHN6JfOE7/CTM7g1Abb2moLjU2WvF5N+oYFcNy4YJ5y75OzZCwZ5y0x4tqbZxtHw2QTWKeFKkcqZdHXFj/qJVa4VeJZAINoSOAIOkDTyR8SBoBA+jTI8qGLTrCN7BxSUQ/RkJOpjzGFHil7QD6OD+HBex4MdECJp5t6JkK0Gp3OwpJLyllIwb5Csy2cU6LUysRwP83XIaPf0poTZ6PBP9N62jZGc5BOE8TEYdYDtBMyvGASYLZ8Jwlqnv+xxUuY8UiKcmBAqyNyV7m2g5f4S49BTg3I38p6MNOktRGoHfEUlVD5E7NvJobGTS2JYsFqSAVS8taZUUahg0v2wb/ciBeOkov3yPma7u9imhz5yBCQ3s9O8cwqqePtLDchWIYGBAQJd7NEJp3FyMitZGYcfzNEr+u6wIRtOkjr4ycLGnADjvi4lfePOGPrKNNYfwdvPNzK/FjNArCYqb5kXwAQbjzRHIyk60xl6LxRDvV9BwPP7lH0itaSe0EGggWfNFbQZ2s2mADNnuAT+WwQ=="
+                        exit
+                    exit
+                exit
+                console
+                    member "administrative"
+                exit
+            exit
+            snmp
+                community "76HzdddhlPpRo1Vql+ZB5spLqccgYQ==" hash2 r version v2c
+            exit
+            per-peer-queuing
+            telnet
+            exit
+            console-login
+        exit
+    exit
+#--------------------------------------------------
+echo "System Login Control Configuration"
+#--------------------------------------------------
+    system
+        login-control
+            pre-login-message "................................................................\n:                  Welcome to Nokia SR OS!                     :\n:                                                              :\n:                                                              :\n: YANG:          https://yangbrowser.nokia.com/sros            :\n: Community:     https://containerlab.dev/community/           :\n: Discord:       https://containerlab.dev/discord/             :\n................................................................\n"
+            login-banner
+        exit
+    exit
+#--------------------------------------------------
+echo "Log Configuration"
+#--------------------------------------------------
+    log
+    exit
+#--------------------------------------------------
+echo "System gRPC Configuration"
+#--------------------------------------------------
+    system
+        grpc
+            allow-unsecure-connection
+            gnoi
+                cert-mgmt
+                    no shutdown
+                exit
+                file
+                    no shutdown
+                exit
+                system
+                    no shutdown
+                exit
+            exit
+            rib-api
+                no shutdown
+            exit
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "Oper-Groups (Declarations) Configuration"
+#--------------------------------------------------
+    service
+    exit
+#--------------------------------------------------
+echo "Card Configuration"
+#--------------------------------------------------
+    card 1
+        card-type xcm-1s
+        mda 1
+            mda-type s36-100gb-qsfp28
+            xconnect
+                mac 1 create
+                    loopback 1 create
+                    exit
+                exit
+                mac 6 create
+                    loopback 2 create
+                    exit
+                exit
+            exit
+            no shutdown
+        exit
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Connector Configuration"
+#--------------------------------------------------
+    port 1/1/c1
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c2
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c3
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c4
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c5
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c6
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c7
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c8
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c9
+        shutdown
+    exit
+    port 1/1/c10
+        shutdown
+    exit
+    port 1/1/c11
+        shutdown
+    exit
+    port 1/1/c12
+        shutdown
+    exit
+    port 1/1/c13
+        shutdown
+    exit
+    port 1/1/c14
+        shutdown
+    exit
+    port 1/1/c15
+        shutdown
+    exit
+    port 1/1/c16
+        shutdown
+    exit
+    port 1/1/c17
+        shutdown
+    exit
+    port 1/1/c18
+        shutdown
+    exit
+    port 1/1/c19
+        shutdown
+    exit
+    port 1/1/c20
+        shutdown
+    exit
+    port 1/1/c21
+        shutdown
+    exit
+    port 1/1/c22
+        shutdown
+    exit
+    port 1/1/c23
+        shutdown
+    exit
+    port 1/1/c24
+        shutdown
+    exit
+    port 1/1/c25
+        shutdown
+    exit
+    port 1/1/c26
+        shutdown
+    exit
+    port 1/1/c27
+        shutdown
+    exit
+    port 1/1/c28
+        shutdown
+    exit
+    port 1/1/c29
+        shutdown
+    exit
+    port 1/1/c30
+        shutdown
+    exit
+    port 1/1/c31
+        shutdown
+    exit
+    port 1/1/c32
+        shutdown
+    exit
+    port 1/1/c33
+        shutdown
+    exit
+    port 1/1/c34
+        shutdown
+    exit
+    port 1/1/c35
+        shutdown
+    exit
+    port 1/1/c36
+        shutdown
+    exit
+#--------------------------------------------------
+echo "Port Cross-Connect Configuration"
+#--------------------------------------------------
+    port-xc
+        pxc 1 create
+            port 1/1/m1/1
+            no shutdown
+        exit
+        pxc 2 create
+            port 1/1/m1/1
+            no shutdown
+        exit
+        pxc 5 create
+            port 1/1/m6/2
+            no shutdown
+        exit
+        pxc 6 create
+            port 1/1/m6/2
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "Port Configuration"
+#--------------------------------------------------
+    port 1/1/c1/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c2/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c3/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c4/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c5/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c6/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c7/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c8/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/m1/1
+        no shutdown
+    exit
+    port 1/1/m6/2
+        no shutdown
+    exit
+    port pxc-1.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-1.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-2.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-2.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-5.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-5.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-6.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-6.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port A/1
+    exit
+    port A/3
+        shutdown
+        ethernet
+        exit
+    exit
+    port A/4
+        shutdown
+    exit
+#--------------------------------------------------
+echo "System Sync-If-Timing Configuration"
+#--------------------------------------------------
+    system
+        sync-if-timing
+            begin
+            commit
+        exit
+    exit
+#--------------------------------------------------
+echo "Forwarding Path Extensions Configuration"
+#--------------------------------------------------
+    fwd-path-ext
+        fpe 1 create
+            path pxc 1
+            srv6 origination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 2 create
+            path pxc 2
+            srv6 termination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 5 create
+            path pxc 5
+            srv6 origination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 6 create
+            path pxc 6
+            srv6 termination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+    exit
+
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router Base
+#--------------------------------------------------
+echo "MPLS Label Range Configuration"
+#--------------------------------------------------
+        mpls-labels
+            reserved-label-block "uSID"
+                start-label 20000 end-label 20999
+            exit
+        exit
+        interface "system"
+            no shutdown
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+        customer 1 name "1" create
+            description "Default customer"
+        exit
+    exit
+#--------------------------------------------------
+echo "Router (Service Side) Configuration"
+#--------------------------------------------------
+    router Base
+    exit
+
+#--------------------------------------------------
+echo "Log all events for service vprn, log syslog tls-client-profile Configuration"
+#--------------------------------------------------
+    log
+    exit
+#--------------------------------------------------
+echo "System Configuration Mode Configuration"
+#--------------------------------------------------
+    system
+        management-interface
+            configuration-mode mixed
+        exit
+    exit
+
+exit all
+
+# Finished Tue Aug  4 06:19:21 2026 UTC

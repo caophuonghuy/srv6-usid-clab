@@ -48,6 +48,13 @@ topology:
         - 2034:22
 #      startup-config: ./configs/srv6-p4.txt
 
+    srv6-rr:
+      kind: nokia_srsim
+#      type: sr-1
+      mgmt-ipv4: 172.50.50.40
+      ports:
+        - 2040:22
+
 # PE routers
     srv6-pe5:
       kind: nokia_srsim
@@ -109,16 +116,22 @@ topology:
     - endpoints: ["srv6-p2:1/1/c3/1", "srv6-p3:1/1/c2/1"]
     - endpoints: ["srv6-p2:1/1/c4/1", "srv6-p4:1/1/c2/1"]
     - endpoints: ["srv6-p3:1/1/c4/1", "srv6-p4:1/1/c3/1"]
+
+    - endpoints: ["srv6-p1:1/1/c10/1", "srv6-rr:1/1/c1/1"]
+    - endpoints: ["srv6-p2:1/1/c10/1", "srv6-rr:1/1/c2/1"]
+    - endpoints: ["srv6-p3:1/1/c10/1", "srv6-rr:1/1/c3/1"]
+    - endpoints: ["srv6-p4:1/1/c10/1", "srv6-rr:1/1/c4/1"]
+
     # PE links
-    - endpoints: ["srv6-pe5:eth1", "srv6-p1:eth5"]
-    - endpoints: ["srv6-pe6:eth2", "srv6-p2:eth6"]
-    - endpoints: ["srv6-pe5:eth6", "srv6-pe6:eth5"]
-    - endpoints: ["srv6-pe7:eth3", "srv6-p3:eth7"]
-    - endpoints: ["srv6-pe8:eth4", "srv6-p4:eth8"]
-    - endpoints: ["srv6-pe7:eth8", "srv6-pe8:eth7"]
+    - endpoints: ["srv6-pe5:1/1/c1/1", "srv6-p1:1/1/c5/1"]
+    - endpoints: ["srv6-pe6:1/1/c2/1", "srv6-p2:1/1/c6/1"]
+    - endpoints: ["srv6-pe5:1/1/c6/1", "srv6-pe6:1/1/c5/1"]
+    - endpoints: ["srv6-pe7:1/1/c3/1", "srv6-p3:1/1/c7/1"]
+    - endpoints: ["srv6-pe8:1/1/c4/1", "srv6-p4:1/1/c8/1"]
+    - endpoints: ["srv6-pe7:1/1/c8/1", "srv6-pe8:1/1/c7/1"]
     #CE links to SRL nodes
-    - endpoints: ["srv6-pe5:eth9", "srv6-pc:e1-5"]
-    - endpoints: ["srv6-pe6:eth9", "srv6-pc:e1-6"]
-    - endpoints: ["srv6-pe7:eth9", "srv6-pc:e1-7"]
-    - endpoints: ["srv6-pe8:eth9", "srv6-pc:e1-8"]
+    - endpoints: ["srv6-pe5:1/1/c9/1", "srv6-pc:e1-5"]
+    - endpoints: ["srv6-pe6:1/1/c9/1", "srv6-pc:e1-6"]
+    - endpoints: ["srv6-pe7:1/1/c9/1", "srv6-pc:e1-7"]
+    - endpoints: ["srv6-pe8:1/1/c9/1", "srv6-pc:e1-8"]
 

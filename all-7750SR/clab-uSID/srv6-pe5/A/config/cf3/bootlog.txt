@@ -25,20 +25,41 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Mon Aug  3 13:04:03 2026 UTC
+Time from clock is Sat Aug  8 07:13:52 2026 UTC
 Trace memory initialised
 Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Mon Aug 03 13:04:10 UTC 2026
+Current Time: Sat Aug 08 07:13:58 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
 Loading primary configuration file "cf3:\config.cfg"
-Commit 1 (1/1): load full-replace "cf3:\config.cfg"
-Loaded 403 lines in 0.2 seconds from file "cf3:\config.cfg"
-Committing configuration ... finished in 0.0 seconds
+System Configuration
+System Security Configuration
+System Login Control Configuration
+Log Configuration
+System gRPC Configuration
+Oper-Groups (Declarations) Configuration
+Card Configuration
+Connector Configuration
+Port Cross-Connect Configuration
+Port Configuration
+System Sync-If-Timing Configuration
+Forwarding Path Extensions Configuration
+ 512 linesManagement Router Configuration
+Router (Network Side) Configuration
+MPLS Label Range Configuration
+Segment Routing v6 Configuration
+Segment Routing Configuration
+ISIS Configuration
+Service Configuration
+Router (Service Side) Configuration
+ISIS Configuration
+Log all events for service vprn, log syslog tls-client-profile Configuration
+System Configuration Mode Configuration
+                      Executed 688 lines in 0.1 seconds from file "cf3:\config.cfg"
 
 TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.

@@ -44,3 +44,8 @@ srv6-pe8:
     password: NokiaSros1!
     platform: nokia_srsim
     hostname: 172.50.50.38
+srv6-rr:
+    username: admin
+    password: NokiaSros1!
+    platform: nokia_srsim
+    hostname: 172.50.50.40

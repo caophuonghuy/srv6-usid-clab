@@ -41,3 +41,5 @@ all:
           ansible_host: 172.50.50.37
         srv6-pe8:
           ansible_host: 172.50.50.38
+        srv6-rr:
+          ansible_host: 172.50.50.40
