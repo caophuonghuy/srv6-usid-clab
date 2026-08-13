@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Sat Aug  8 09:48:20 2026 UTC
+# Generated Sat Aug  8 09:50:12 2026 UTC
 
 exit all
 configure
@@ -670,8 +670,23 @@ echo "BGP Configuration"
             group "ibgp"
                 family vpn-ipv4 vpn-ipv6 evpn
                 type internal
+                cluster 10.10.10.10
                 peer-as 65000
                 neighbor fd00:0:1::1
+                exit
+                neighbor fd00:0:2::2
+                exit
+                neighbor fd00:0:3::3
+                exit
+                neighbor fd00:0:4::4
+                exit
+                neighbor fd00:0:5::5
+                exit
+                neighbor fd00:0:6::6
+                exit
+                neighbor fd00:0:7::7
+                exit
+                neighbor fd00:0:8::8
                 exit
             exit
             no shutdown
@@ -694,4 +709,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Sat Aug  8 09:48:20 2026 UTC
+# Finished Sat Aug  8 09:50:12 2026 UTC

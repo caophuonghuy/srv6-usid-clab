@@ -1,9 +1,9 @@
-# TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1 Copyright (c) 2000-2026 Nokia.
+# TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
 # All rights reserved. All use subject to applicable license agreements.
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug  6 09:13:28 2026 UTC
+# Generated Sat Aug  8 07:13:59 2026 UTC
 
 exit all
 configure
@@ -21,6 +21,7 @@ echo "System Configuration"
             streaming
                 no shutdown
             exit
+            shutdown
             packet-size 9216
         exit
         time
@@ -185,109 +186,12 @@ echo "Oper-Groups (Declarations) Configuration"
 echo "Card Configuration"
 #--------------------------------------------------
     card 1
-        card-type iom-1
-        mda 1
-            mda-type me6-100gb-qsfp28
-            no shutdown
-        exit
-        mda 2
-            mda-type me12-100gb-qsfp28
-            no shutdown
-        exit
+        card-type xcm-1s
         no shutdown
-    exit
-#--------------------------------------------------
-echo "Connector Configuration"
-#--------------------------------------------------
-    port 1/1/c1
-        connector
-            breakout c1-100g
-        exit
-        no shutdown
-    exit
-    port 1/1/c2
-        connector
-            breakout c1-100g
-        exit
-        no shutdown
-    exit
-    port 1/1/c3
-        connector
-            breakout c1-100g
-        exit
-        no shutdown
-    exit
-    port 1/1/c4
-        connector
-            breakout c1-100g
-        exit
-        no shutdown
-    exit
-    port 1/1/c5
-        shutdown
-    exit
-    port 1/1/c6
-        shutdown
-    exit
-    port 1/2/c1
-        shutdown
-    exit
-    port 1/2/c2
-        shutdown
-    exit
-    port 1/2/c3
-        shutdown
-    exit
-    port 1/2/c4
-        shutdown
-    exit
-    port 1/2/c5
-        shutdown
-    exit
-    port 1/2/c6
-        shutdown
-    exit
-    port 1/2/c7
-        shutdown
-    exit
-    port 1/2/c8
-        shutdown
-    exit
-    port 1/2/c9
-        shutdown
-    exit
-    port 1/2/c10
-        shutdown
-    exit
-    port 1/2/c11
-        shutdown
-    exit
-    port 1/2/c12
-        shutdown
     exit
 #--------------------------------------------------
 echo "Port Configuration"
 #--------------------------------------------------
-    port 1/1/c1/1
-        ethernet
-        exit
-        no shutdown
-    exit
-    port 1/1/c2/1
-        ethernet
-        exit
-        no shutdown
-    exit
-    port 1/1/c3/1
-        ethernet
-        exit
-        no shutdown
-    exit
-    port 1/1/c4/1
-        ethernet
-        exit
-        no shutdown
-    exit
     port A/1
     exit
     port A/3
@@ -318,75 +222,6 @@ echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
         interface "system"
-            ipv6
-                address fd00::/128
-            exit
-            no shutdown
-        exit
-        interface "to-R1"
-            port 1/1/c1/1
-            ipv6
-            exit
-            no shutdown
-        exit
-        interface "to-R2"
-            port 1/1/c2/1
-            ipv6
-            exit
-            no shutdown
-        exit
-        interface "to-R3"
-            port 1/1/c3/1
-            ipv6
-            exit
-            no shutdown
-        exit
-        interface "to-R4"
-            port 1/1/c4/1
-            ipv6
-            exit
-            no shutdown
-        exit
-        autonomous-system 65000
-#--------------------------------------------------
-echo "ISIS Configuration"
-#--------------------------------------------------
-        isis 0
-            level-capability level-2
-            standard-multi-instance
-            advertise-router-capability as
-            loopfree-alternates
-                ti-lfa
-                    node-protect
-                exit
-            exit
-            no ipv4-routing
-            ipv6-routing mt
-            multi-topology
-                ipv6-unicast
-            exit
-            level 2
-                wide-metrics-only
-            exit
-            interface "system"
-                no shutdown
-            exit
-            interface "to-R1"
-                interface-type point-to-point
-                no shutdown
-            exit
-            interface "to-R2"
-                interface-type point-to-point
-                no shutdown
-            exit
-            interface "to-R3"
-                interface-type point-to-point
-                no shutdown
-            exit
-            interface "to-R4"
-                interface-type point-to-point
-                no shutdown
-            exit
             no shutdown
         exit
     exit
@@ -403,39 +238,6 @@ echo "Service Configuration"
 echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
-#--------------------------------------------------
-echo "ISIS Configuration"
-#--------------------------------------------------
-        isis 0
-            no shutdown
-        exit
-#--------------------------------------------------
-echo "BGP Configuration"
-#--------------------------------------------------
-        bgp
-            extended-nh-encoding vpn-ipv4
-            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
-            group "ibgp"
-                family vpn-ipv4
-                cluster 10.10.10.10
-                peer-as 65000
-                neighbor fd00:0:1::1
-                exit
-                neighbor fd00:0:2::2
-                exit
-                neighbor fd00:0:3::3
-                exit
-                neighbor fd00:0:5::5
-                exit
-                neighbor fd00:0:6::6
-                exit
-                neighbor fd00:0:7::7
-                exit
-                neighbor fd00:0:8::8
-                exit
-            exit
-            no shutdown
-        exit
     exit
 
 #--------------------------------------------------
@@ -448,13 +250,10 @@ echo "System Configuration Mode Configuration"
 #--------------------------------------------------
     system
         management-interface
-            configuration-mode mixed
-            cli
-                cli-engine classic-cli md-cli
-            exit
+            configuration-mode classic
         exit
     exit
 
 exit all
 
-# Finished Thu Aug  6 09:13:28 2026 UTC
+# Finished Sat Aug  8 07:13:59 2026 UTC

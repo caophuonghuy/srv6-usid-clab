@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Wed Aug  5 05:30:04 2026 UTC
+# Generated Thu Aug  6 07:24:54 2026 UTC
 
 exit all
 configure
@@ -541,13 +541,42 @@ echo "Router (Network Side) Configuration"
 echo "MPLS Label Range Configuration"
 #--------------------------------------------------
         mpls-labels
-            reserved-label-block "uSID"
+            reserved-label-block "lbl-blk-uSID"
                 start-label 20000 end-label 20999
+            exit
+        exit
+#--------------------------------------------------
+echo "Segment Routing v6 Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                origination-fpe 1
+                source-address fd00:0:5::5
+                micro-segment
+                    block "uSID-blk-0"
+                        label-block "lbl-blk-uSID"
+                        termination-fpe 2
+                        prefix
+                            ip-prefix fd00::/32
+                        exit
+                        static-function
+                            max-entries 255
+                        exit
+                        no shutdown
+                    exit
+                exit
+                micro-segment-locator "u-loc-0"
+                    block "uSID-blk-0"
+                    un
+                        value 5
+                    exit
+                    no shutdown
+                exit
             exit
         exit
         interface "system"
             ipv6
-                address fd::15/128
+                address fd00:0:5::5/128
             exit
             no shutdown
         exit
@@ -562,6 +591,20 @@ echo "MPLS Label Range Configuration"
             ipv6
             exit
             no shutdown
+        exit
+#--------------------------------------------------
+echo "Segment Routing Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                base-routing-instance
+                    micro-segment-locator "u-loc-0"
+                        function
+                            ua-auto-allocate srh-mode psp protection protected
+                        exit
+                    exit
+                exit
+            exit
         exit
 #--------------------------------------------------
 echo "ISIS Configuration"
@@ -582,6 +625,17 @@ echo "ISIS Configuration"
             exit
             level 2
                 wide-metrics-only
+            exit
+            segment-routing-v6
+                micro-segment-locator "u-loc-0"
+                    level-capability level-2
+                    multi-topology mt2
+                    level 1
+                    exit
+                    level 2
+                    exit
+                exit
+                no shutdown
             exit
             interface "system"
                 no shutdown
@@ -634,4 +688,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Wed Aug  5 05:30:04 2026 UTC
+# Finished Thu Aug  6 07:24:54 2026 UTC

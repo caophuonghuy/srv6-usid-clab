@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Mon Aug  3 13:09:19 2026 UTC
+# Generated Wed Aug  5 03:04:32 2026 UTC
 
 exit all
 configure
@@ -610,6 +610,10 @@ echo "ISIS Configuration"
                 interface-type point-to-point
                 no shutdown
             exit
+            interface "to-R8"
+                interface-type point-to-point
+                no shutdown
+            exit
             no shutdown
         exit
     exit
@@ -697,4 +701,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Mon Aug  3 13:09:19 2026 UTC
+# Finished Wed Aug  5 03:04:32 2026 UTC

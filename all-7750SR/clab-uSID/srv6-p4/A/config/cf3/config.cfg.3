@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug  6 08:21:18 2026 UTC
+# Generated Thu Aug  6 08:36:01 2026 UTC
 
 exit all
 configure
@@ -273,7 +273,10 @@ echo "Connector Configuration"
         shutdown
     exit
     port 1/1/c10
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c11
         shutdown
@@ -405,6 +408,11 @@ echo "Port Configuration"
         no shutdown
     exit
     port 1/1/c8/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c10/1
         ethernet
         exit
         no shutdown
@@ -552,6 +560,12 @@ echo "Segment Routing v6 Configuration"
             exit
             no shutdown
         exit
+        interface "to-rr"
+            port 1/1/c10/1
+            ipv6
+            exit
+            no shutdown
+        exit
         autonomous-system 65000
 #--------------------------------------------------
 echo "Segment Routing Configuration"
@@ -611,6 +625,10 @@ echo "ISIS Configuration"
                 no shutdown
             exit
             interface "to-R8"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-rr"
                 interface-type point-to-point
                 no shutdown
             exit
@@ -675,4 +693,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Thu Aug  6 08:21:18 2026 UTC
+# Finished Thu Aug  6 08:36:01 2026 UTC

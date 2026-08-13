@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug  6 08:22:33 2026 UTC
+# Generated Thu Aug  6 08:29:28 2026 UTC
 
 exit all
 configure
@@ -200,16 +200,28 @@ echo "Card Configuration"
 echo "Connector Configuration"
 #--------------------------------------------------
     port 1/1/c1
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c2
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c3
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c4
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c5
         shutdown
@@ -256,6 +268,26 @@ echo "Connector Configuration"
 #--------------------------------------------------
 echo "Port Configuration"
 #--------------------------------------------------
+    port 1/1/c1/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c2/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c3/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c4/1
+        ethernet
+        exit
+        no shutdown
+    exit
     port A/1
     exit
     port A/3
@@ -286,6 +318,74 @@ echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
         interface "system"
+            ipv6
+                address fd00::/128
+            exit
+            no shutdown
+        exit
+        interface "to-R1"
+            port 1/1/c1/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R2"
+            port 1/1/c2/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R3"
+            port 1/1/c3/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R4"
+            port 1/1/c4/1
+            ipv6
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            level-capability level-2
+            standard-multi-instance
+            advertise-router-capability as
+            loopfree-alternates
+                ti-lfa
+                    node-protect
+                exit
+            exit
+            no ipv4-routing
+            ipv6-routing mt
+            multi-topology
+                ipv6-unicast
+            exit
+            level 2
+                wide-metrics-only
+            exit
+            interface "system"
+                no shutdown
+            exit
+            interface "to-R1"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R2"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R3"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R4"
+                interface-type point-to-point
+                no shutdown
+            exit
             no shutdown
         exit
     exit
@@ -302,6 +402,12 @@ echo "Service Configuration"
 echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            no shutdown
+        exit
     exit
 
 #--------------------------------------------------
@@ -315,9 +421,12 @@ echo "System Configuration Mode Configuration"
     system
         management-interface
             configuration-mode mixed
+            cli
+                cli-engine classic-cli md-cli
+            exit
         exit
     exit
 
 exit all
 
-# Finished Thu Aug  6 08:22:33 2026 UTC
+# Finished Thu Aug  6 08:29:28 2026 UTC

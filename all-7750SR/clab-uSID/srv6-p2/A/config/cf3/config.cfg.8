@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Wed Aug  5 03:29:02 2026 UTC
+# Generated Thu Aug  6 06:27:20 2026 UTC
 
 exit all
 configure
@@ -488,11 +488,8 @@ echo "Router (Network Side) Configuration"
 echo "MPLS Label Range Configuration"
 #--------------------------------------------------
         mpls-labels
-            reserved-label-block "uSID"
+            reserved-label-block "lbl-blk-uSID"
                 start-label 20000 end-label 20999
-            exit
-            reserved-label-block "Alg-128-uSID"
-                start-label 21000 end-label 21999
             exit
         exit
 #--------------------------------------------------
@@ -501,13 +498,13 @@ echo "Segment Routing v6 Configuration"
         segment-routing
             segment-routing-v6
                 origination-fpe 1
-                source-address fdca:fe00:2::1
+                source-address fd00:0:2::2
                 micro-segment
-                    block "uSID-0"
-                        label-block "uSID"
+                    block "uSID-blk-0"
+                        label-block "lbl-blk-uSID"
                         termination-fpe 2
                         prefix
-                            ip-prefix fdca:fe00::/32
+                            ip-prefix fd00::/32
                         exit
                         static-function
                             max-entries 255
@@ -515,8 +512,8 @@ echo "Segment Routing v6 Configuration"
                         no shutdown
                     exit
                 exit
-                micro-segment-locator "uSID"
-                    block "uSID-0"
+                micro-segment-locator "u-loc-0"
+                    block "uSID-blk-0"
                     un
                         value 2
                     exit
@@ -527,7 +524,7 @@ echo "Segment Routing v6 Configuration"
         interface "system"
             address 10.10.10.2/32
             ipv6
-                address fdca:fe00:2::1/128
+                address fd00:0:2::2/128
             exit
             no shutdown
         exit
@@ -562,7 +559,7 @@ echo "Segment Routing Configuration"
         segment-routing
             segment-routing-v6
                 base-routing-instance
-                    micro-segment-locator "uSID"
+                    micro-segment-locator "u-loc-0"
                         function
                             ua-auto-allocate srh-mode psp protection protected
                         exit
@@ -591,7 +588,7 @@ echo "ISIS Configuration"
                 wide-metrics-only
             exit
             segment-routing-v6
-                micro-segment-locator "uSID"
+                micro-segment-locator "u-loc-0"
                     level-capability level-2
                     multi-topology mt2
                     level 1
@@ -637,19 +634,11 @@ echo "Service Configuration"
                 address 1.0.0.2/32
                 loopback
             exit
-            segment-routing-v6 1 create
-                micro-segment-locator "uSID"
-                    function
-                        udt4
-                    exit
-                exit
-            exit
             bgp-ipvpn
                 segment-routing-v6 bgp 1
+                    shutdown
                     route-distinguisher 65000:1
-                    srv6-instance 1 default-locator "uSID"
                     vrf-target target:65000:1
-                    no shutdown
                 exit
             exit
             no shutdown
@@ -704,4 +693,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Wed Aug  5 03:29:02 2026 UTC
+# Finished Thu Aug  6 06:27:21 2026 UTC

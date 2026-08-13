@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug  6 06:36:19 2026 UTC
+# Generated Thu Aug  6 07:17:46 2026 UTC
 
 exit all
 configure
@@ -625,26 +625,6 @@ echo "Service Configuration"
         customer 1 name "1" create
             description "Default customer"
         exit
-        vprn 1 name "1" customer 1 create
-            interface "loopback" create
-            exit
-        exit
-        vprn 1 name "1" customer 1 create
-            interface "loopback" create
-                address 1.0.0.3/32
-                loopback
-            exit
-            segment-routing-v6 1 create
-            exit
-            bgp-ipvpn
-                segment-routing-v6 bgp 1
-                    shutdown
-                    route-distinguisher 65000:1
-                    vrf-target target:65000:1
-                exit
-            exit
-            no shutdown
-        exit
     exit
 #--------------------------------------------------
 echo "Router (Service Side) Configuration"
@@ -695,4 +675,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Thu Aug  6 06:36:19 2026 UTC
+# Finished Thu Aug  6 07:17:46 2026 UTC

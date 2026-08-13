@@ -3,8 +3,8 @@ Warning: Cgroup memory limit not set or cgroups not present.
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Total Memory: 128907MB  Chassis Type: 0x24   [ ref: 619fd8fef89f; ]
-TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1 Copyright (c) 2000-2026 Nokia.
+Total Memory: 128907MB  Chassis Type: 0x23   [ ref: 619fd8fef89f; ]
+TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.
 Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 
@@ -25,12 +25,13 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Thu Aug  6 09:13:47 2026 UTC
+Time from clock is Sat Aug  8 07:13:52 2026 UTC
+Trace memory initialised
 Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Thu Aug 06 09:13:52 UTC 2026
+Current Time: Sat Aug 08 07:13:58 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
@@ -42,21 +43,16 @@ Log Configuration
 System gRPC Configuration
 Oper-Groups (Declarations) Configuration
 Card Configuration
-Connector Configuration
-Port Configuration
-System Sync-If-Timing Configuration
-Management Router Configuration
-Router (Network Side) Configuration
-ISIS Configuration
-Service Configuration
-Router (Service Side) Configuration
-ISIS Configuration
-BGP Configuration
-Log all events for service vprn, log syslog tls-client-profile Configuration
-System Configuration Mode Configuration
-Executed 460 lines in 0.1 seconds from file "cf3:\config.cfg"
+MINOR: CLI Unknown card type "iom-1".
 
-TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1 Copyright (c) 2000-2026 Nokia.
+MAJOR: CLI #1009 An error occurred while processing a CLI command - 
+File cf3:\config.cfg, Line 188: Command "card-type iom-1" failed.
+
+CRITICAL: CLI #1002 The system configuration is missing or incomplete because an error occurred while processing the configuration file.
+
+MAJOR: CLI #1008 The SNMP daemon is disabled.  To enable SNMP, execute the command 'config>system>snmp no shutdown'.
+
+TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.
 Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 

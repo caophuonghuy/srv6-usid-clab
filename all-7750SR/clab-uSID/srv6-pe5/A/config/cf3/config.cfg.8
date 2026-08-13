@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Tue Aug  4 06:19:09 2026 UTC
+# Generated Wed Aug  5 05:30:04 2026 UTC
 
 exit all
 configure
@@ -557,10 +557,42 @@ echo "MPLS Label Range Configuration"
             exit
             no shutdown
         exit
-        interface "to-R7"
-            port 1/1/c7/1
+        interface "to-R6"
+            port 1/1/c6/1
             ipv6
-                address fd::575/124
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            level-capability level-2
+            standard-multi-instance
+            advertise-router-capability as
+            loopfree-alternates
+                ti-lfa
+                    node-protect
+                exit
+            exit
+            no ipv4-routing
+            ipv6-routing mt
+            multi-topology
+                ipv6-unicast
+            exit
+            level 2
+                wide-metrics-only
+            exit
+            interface "system"
+                no shutdown
+            exit
+            interface "to-R1"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R6"
+                interface-type point-to-point
+                no shutdown
             exit
             no shutdown
         exit
@@ -578,6 +610,12 @@ echo "Service Configuration"
 echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            no shutdown
+        exit
     exit
 
 #--------------------------------------------------
@@ -596,4 +634,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Tue Aug  4 06:19:09 2026 UTC
+# Finished Wed Aug  5 05:30:04 2026 UTC

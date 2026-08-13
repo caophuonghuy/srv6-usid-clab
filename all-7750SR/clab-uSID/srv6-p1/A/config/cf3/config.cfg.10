@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Wed Aug  5 03:26:09 2026 UTC
+# Generated Thu Aug  6 02:04:38 2026 UTC
 
 exit all
 configure
@@ -557,7 +557,7 @@ echo "Segment Routing v6 Configuration"
                         label-block "uSID"
                         termination-fpe 2
                         prefix
-                            ip-prefix fdca:fe00::/32
+                            ip-prefix fd00::/32
                         exit
                         static-function
                             max-entries 255
@@ -577,7 +577,7 @@ echo "Segment Routing v6 Configuration"
         interface "system"
             address 10.10.10.1/32
             ipv6
-                address fdca:fe00:1::1/128
+                address fd00:0:1::1/128
             exit
             no shutdown
         exit
@@ -747,11 +747,11 @@ echo "System Configuration Mode Configuration"
         management-interface
             configuration-mode mixed
             cli
-                cli-engine md-cli classic-cli
+                cli-engine classic-cli md-cli
             exit
         exit
     exit
 
 exit all
 
-# Finished Wed Aug  5 03:26:09 2026 UTC
+# Finished Thu Aug  6 02:04:39 2026 UTC

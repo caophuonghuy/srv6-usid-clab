@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Sat Aug  8 07:13:59 2026 UTC
+# Generated Sat Aug  8 09:48:20 2026 UTC
 
 exit all
 configure
@@ -12,6 +12,26 @@ echo "System Configuration"
 #--------------------------------------------------
     system
         name "srv6-rr"
+        power-shelf 1
+            power-shelf-type ps-a4-shelf-dc
+            power-module 1
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 2
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 3
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            power-module 4
+                power-module-type ps-a-dc-6000
+                no shutdown
+            exit
+            no shutdown
+        exit
         netconf
             listen
                 no shutdown
@@ -187,11 +207,235 @@ echo "Card Configuration"
 #--------------------------------------------------
     card 1
         card-type xcm-1s
+        mda 1
+            mda-type s36-100gb-qsfp28
+            xconnect
+                mac 1 create
+                    loopback 1 create
+                    exit
+                exit
+                mac 6 create
+                    loopback 2 create
+                    exit
+                exit
+            exit
+            no shutdown
+        exit
         no shutdown
+    exit
+#--------------------------------------------------
+echo "Connector Configuration"
+#--------------------------------------------------
+    port 1/1/c1
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c2
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c3
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c4
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c5
+        shutdown
+    exit
+    port 1/1/c6
+        shutdown
+    exit
+    port 1/1/c7
+        shutdown
+    exit
+    port 1/1/c8
+        shutdown
+    exit
+    port 1/1/c9
+        shutdown
+    exit
+    port 1/1/c10
+        shutdown
+    exit
+    port 1/1/c11
+        shutdown
+    exit
+    port 1/1/c12
+        shutdown
+    exit
+    port 1/1/c13
+        shutdown
+    exit
+    port 1/1/c14
+        shutdown
+    exit
+    port 1/1/c15
+        shutdown
+    exit
+    port 1/1/c16
+        shutdown
+    exit
+    port 1/1/c17
+        shutdown
+    exit
+    port 1/1/c18
+        shutdown
+    exit
+    port 1/1/c19
+        shutdown
+    exit
+    port 1/1/c20
+        shutdown
+    exit
+    port 1/1/c21
+        shutdown
+    exit
+    port 1/1/c22
+        shutdown
+    exit
+    port 1/1/c23
+        shutdown
+    exit
+    port 1/1/c24
+        shutdown
+    exit
+    port 1/1/c25
+        shutdown
+    exit
+    port 1/1/c26
+        shutdown
+    exit
+    port 1/1/c27
+        shutdown
+    exit
+    port 1/1/c28
+        shutdown
+    exit
+    port 1/1/c29
+        shutdown
+    exit
+    port 1/1/c30
+        shutdown
+    exit
+    port 1/1/c31
+        shutdown
+    exit
+    port 1/1/c32
+        shutdown
+    exit
+    port 1/1/c33
+        shutdown
+    exit
+    port 1/1/c34
+        shutdown
+    exit
+    port 1/1/c35
+        shutdown
+    exit
+    port 1/1/c36
+        shutdown
+    exit
+#--------------------------------------------------
+echo "Port Cross-Connect Configuration"
+#--------------------------------------------------
+    port-xc
+        pxc 1 create
+            port 1/1/m1/1
+            no shutdown
+        exit
+        pxc 2 create
+            port 1/1/m1/1
+            no shutdown
+        exit
+        pxc 5 create
+            port 1/1/m6/2
+            no shutdown
+        exit
+        pxc 6 create
+            port 1/1/m6/2
+            no shutdown
+        exit
     exit
 #--------------------------------------------------
 echo "Port Configuration"
 #--------------------------------------------------
+    port 1/1/c1/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c2/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c3/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c4/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/m1/1
+        no shutdown
+    exit
+    port 1/1/m6/2
+        no shutdown
+    exit
+    port pxc-1.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-1.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-2.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-2.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-5.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-5.b
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-6.a
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-6.b
+        ethernet
+        exit
+        no shutdown
+    exit
     port A/1
     exit
     port A/3
@@ -212,6 +456,47 @@ echo "System Sync-If-Timing Configuration"
         exit
     exit
 #--------------------------------------------------
+echo "Forwarding Path Extensions Configuration"
+#--------------------------------------------------
+    fwd-path-ext
+        fpe 1 create
+            path pxc 1
+            srv6 origination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 2 create
+            path pxc 2
+            srv6 termination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 5 create
+            path pxc 5
+            srv6 origination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+        fpe 6 create
+            path pxc 6
+            srv6 termination
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
 echo "Management Router Configuration"
 #--------------------------------------------------
     router management
@@ -221,7 +506,139 @@ echo "Management Router Configuration"
 echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "MPLS Label Range Configuration"
+#--------------------------------------------------
+        mpls-labels
+            reserved-label-block "lbl-blk-uSID"
+                start-label 20000 end-label 20999
+            exit
+        exit
+#--------------------------------------------------
+echo "Segment Routing v6 Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                origination-fpe 1
+                source-address fd00:0:a::a
+                micro-segment
+                    block "uSID-blk-0"
+                        label-block "lbl-blk-uSID"
+                        termination-fpe 2
+                        prefix
+                            ip-prefix fd00::/32
+                        exit
+                        static-function
+                            max-entries 255
+                        exit
+                        no shutdown
+                    exit
+                exit
+                micro-segment-locator "u-loc-0"
+                    block "uSID-blk-0"
+                    un
+                        value 10
+                    exit
+                    no shutdown
+                exit
+            exit
+        exit
         interface "system"
+            address 10.10.10.10/32
+            ipv6
+                address fd00:0:a::a/128
+            exit
+            no shutdown
+        exit
+        interface "to-R1"
+            port 1/1/c1/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R2"
+            port 1/1/c2/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R3"
+            port 1/1/c3/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        interface "to-R4"
+            port 1/1/c4/1
+            ipv6
+            exit
+            no shutdown
+        exit
+        autonomous-system 65000
+#--------------------------------------------------
+echo "Segment Routing Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                base-routing-instance
+                    micro-segment-locator "u-loc-0"
+                        function
+                            ua-auto-allocate srh-mode psp protection protected
+                        exit
+                    exit
+                exit
+            exit
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            level-capability level-2
+            standard-multi-instance
+            advertise-router-capability as
+            loopfree-alternates
+                ti-lfa
+                    node-protect
+                exit
+            exit
+            no ipv4-routing
+            ipv6-routing mt
+            multi-topology
+                ipv6-unicast
+            exit
+            level 2
+                wide-metrics-only
+            exit
+            segment-routing-v6
+                micro-segment-locator "u-loc-0"
+                    level-capability level-2
+                    multi-topology mt2
+                    level 1
+                    exit
+                    level 2
+                    exit
+                exit
+                no shutdown
+            exit
+            interface "system"
+                no shutdown
+            exit
+            interface "to-R1"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R2"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R3"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R4"
+                interface-type point-to-point
+                no shutdown
+            exit
             no shutdown
         exit
     exit
@@ -238,6 +655,27 @@ echo "Service Configuration"
 echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            extended-nh-encoding vpn-ipv4
+            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
+            group "ibgp"
+                family vpn-ipv4 vpn-ipv6 evpn
+                type internal
+                peer-as 65000
+                neighbor fd00:0:1::1
+                exit
+            exit
+            no shutdown
+        exit
     exit
 
 #--------------------------------------------------
@@ -256,4 +694,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Sat Aug  8 07:13:59 2026 UTC
+# Finished Sat Aug  8 09:48:20 2026 UTC

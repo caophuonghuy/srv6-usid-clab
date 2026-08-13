@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Sat Aug  8 07:13:59 2026 UTC
+# Generated Sat Aug  8 09:53:19 2026 UTC
 
 exit all
 configure
@@ -667,6 +667,21 @@ echo "ISIS Configuration"
         isis 0
             no shutdown
         exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            extended-nh-encoding vpn-ipv4
+            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
+            group "ibgp"
+                family vpn-ipv4 vpn-ipv6 evpn
+                type internal
+                peer-as 65000
+                neighbor fd00:0:a::a
+                exit
+            exit
+            no shutdown
+        exit
     exit
 
 #--------------------------------------------------
@@ -685,4 +700,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Sat Aug  8 07:13:59 2026 UTC
+# Finished Sat Aug  8 09:53:19 2026 UTC
