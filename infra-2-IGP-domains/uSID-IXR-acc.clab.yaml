@@ -1,0 +1,86 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Cao Phuong Huy - phuong_huy.cao@nokia.com      #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+name: uSID-IXR-acc
+prefix: ""
+mgmt:
+  network: mngt
+  ipv4-subnet: 172.50.50.0/24
+topology:
+  kinds:
+    nokia_srsim:
+      image: localhost/nokia/srsim:26.3.R2
+      license: /home/License/SR-SIM/srsim-r26.txt
+      type: sr-1s
+  nodes:
+#~~~~~~~~~~~~~~~~~~~~ SR routers  ~~~~~~~~~~~~~~~~~~~~~~~~
+    pe5:
+      kind: nokia_srsim
+      startup-config: ./configs/uSID-pe5.cfg
+      ports:
+        - 2055:22
+    pe6:
+      kind: nokia_srsim
+      startup-config: ./configs/uSID-pe6.cfg
+      ports:
+        - 2056:22
+    sr1:
+      kind: nokia_srsim
+      startup-config: ./configs/uSID-p1.cfg
+      ports:
+        - 2051:22
+    sr2:
+      kind: nokia_srsim
+      startup-config: ./configs/uSID-p2.cfg
+      ports:
+        - 2052:22
+
+#~~~~~~~~~~~~~~~~~~~~ IXR gen2 routers  ~~~~~~~~~~~~~~~~~~~~~~
+    agg3:
+      kind: nokia_srsim
+      type: ixr-e2
+#      startup-config: ./configs/uSID-p3.cfg
+      ports:
+        - 2053:22
+    agg4:
+      kind: nokia_srsim
+      type: ixr-e2
+#      startup-config: ./configs/uSID-p4.cfg
+      ports:
+        - 2054:22
+    acc7:
+      kind: nokia_srsim
+      type: ixr-e3c
+#      startup-config: ./configs/uSID-pe7.cfg
+      ports:
+        - 2057:22
+    acc8:
+      kind: nokia_srsim
+      type: ixr-e2c
+#      startup-config: ./configs/uSID-pe8.cfg
+      ports:
+        - 2058:22
+
+  links:
+#~~~~~~~~~~~~~~~~~~~~   among SR    ~~~~~~~~~~~~~~~~~~~~~~~~
+    - endpoints: ["pe5:1/1/c2/1", "pe6:1/1/c2/1"] # peer eth2
+    - endpoints: ["sr1:1/1/c2/1", "sr2:1/1/c2/1"] 
+    - endpoints: ["pe5:1/1/c1/1", "sr1:1/1/c1/1"] # uplink eth1
+    - endpoints: ["pe6:1/1/c1/1", "sr2:1/1/c1/1"]
+#~~~~~~~~~~~~~~~~~~~~~~ SR to IXR   ~~~~~~~~~~~~~~~~~~~~~~~~
+    - endpoints: ["sr1:1/1/c3/1", "agg3:1/1/c1/1"] # downlink eth3 -uplink eth1
+    - endpoints: ["sr2:1/1/c3/1", "agg4:1/1/c1/1"]
+#~~~~~~~~~~~~~~~~~~~~   among IXR   ~~~~~~~~~~~~~~~~~~~~~~~~
+    - endpoints: ["agg3:1/1/c2/1", "agg4:1/1/c2/1"] # peer eth2
+    - endpoints: ["acc7:1/1/c2/1", "acc8:1/1/c14/1"]
+    - endpoints: ["agg3:1/1/c3/1", "acc7:1/1/c1/1"] # downlink eth3 -uplink eth1
+    - endpoints: ["agg4:1/1/c3/1", "acc8:1/1/c13/1"]
+#~~~~~~~~~~~~~~~~~~~~~~ hair pins  ~~~~~~~~~~~~~~~~~~~~~~~~~
+#    - endpoints: ["sr1:1/1/c7/1", "sr1:1/1/c8/1"]
+#    - endpoints: ["sr2:1/1/c7/1", "sr2:1/1/c8/1"]
+    - endpoints: ["pe5:1/1/c7/1", "pe5:1/1/c8/1"]
+    - endpoints: ["pe6:1/1/c7/1", "pe6:1/1/c8/1"]
+#    - endpoints: ["agg3:1/1/c7/1", "agg3:1/1/c8/1"]
+#    - endpoints: ["agg4:1/1/c6/1", "agg4:1/1/c11/1"]
+    - endpoints: ["acc7:1/1/c7/1", "acc7:1/1/c8/1"]
+    - endpoints: ["acc8:1/1/c7/1", "acc8:1/1/c8/1"]
