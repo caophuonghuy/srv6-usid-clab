@@ -1,0 +1,32 @@
+all:
+  vars:
+    # The generated inventory is assumed to be used from the clab host.
+    # Hence no http proxy should be used. Therefore we make sure the http
+    # module does not attempt using any global http proxy.
+    ansible_httpapi_use_proxy: false
+  children:
+    nokia_srsim:
+      vars:
+        ansible_network_os: nokia.sros.md
+        # default connection type for nodes of this kind
+        # feel free to override this in your inventory
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_user: admin
+        ansible_password: NokiaSros1!
+      hosts:
+        acc7:
+          ansible_host: 172.50.50.6
+        acc8:
+          ansible_host: 172.50.50.9
+        agg3:
+          ansible_host: 172.50.50.2
+        agg4:
+          ansible_host: 172.50.50.3
+        pe5:
+          ansible_host: 172.50.50.5
+        pe6:
+          ansible_host: 172.50.50.7
+        sr1:
+          ansible_host: 172.50.50.8
+        sr2:
+          ansible_host: 172.50.50.4

@@ -1,0 +1,14 @@
+cd  /root/SRv6/uSID/ixr-sgw/configs
+
+cp ../clab-uSID-ixr-sgw/sr1/A/config/cf3/config.cfg  ixr-sgw-P1.cfg
+cp ../clab-uSID-ixr-sgw/sr2/A/config/cf3/config.cfg  ixr-sgw-P2.cfg
+cp ../clab-uSID-ixr-sgw/agg3/A/config/cf3/config.cfg ixr-sgw-ABR3.cfg
+cp ../clab-uSID-ixr-sgw/agg4/A/config/cf3/config.cfg ixr-sgw-ABR4.cfg
+cp ../clab-uSID-ixr-sgw/pe5/A/config/cf3/config.cfg  ixr-sgw-PE5.cfg
+cp ../clab-uSID-ixr-sgw/pe6/A/config/cf3/config.cfg  ixr-sgw-PE6.cfg
+cp ../clab-uSID-ixr-sgw/acc7/A/config/cf3/config.cfg ixr-sgw-ACC7.cfg
+cp ../clab-uSID-ixr-sgw/acc8/A/config/cf3/config.cfg ixr-sgw-ACC8.cfg
+  
+cd ..
+
+

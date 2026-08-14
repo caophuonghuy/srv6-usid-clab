@@ -3,39 +3,39 @@ acc7:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.5
+    hostname: 172.50.50.3
 acc8:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.7
+    hostname: 172.50.50.6
 agg3:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.8
+    hostname: 172.50.50.5
 agg4:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.6
+    hostname: 172.50.50.7
 pe5:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.3
+    hostname: 172.50.50.9
 pe6:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.9
+    hostname: 172.50.50.8
 sr1:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.2
+    hostname: 172.50.50.4
 sr2:
     username: admin
     password: NokiaSros1!
     platform: nokia_srsim
-    hostname: 172.50.50.4
+    hostname: 172.50.50.2

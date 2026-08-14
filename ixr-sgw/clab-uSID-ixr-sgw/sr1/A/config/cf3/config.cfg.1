@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Wed Aug 12 09:55:56 2026 UTC
+# Generated Thu Aug 13 09:21:50 2026 UTC
 
 exit all
 configure
@@ -11,7 +11,7 @@ configure
 echo "System Configuration"
 #--------------------------------------------------
     system
-        name "sr1"
+        name "ixr-sgw-P1"
         power-shelf 1
             power-shelf-type ps-a4-shelf-dc
             power-module 1
@@ -589,13 +589,6 @@ echo "Segment Routing v6 Configuration"
                 exit
             exit
         exit
-        interface "loopback-1"
-            loopback
-            ipv6
-                address fd00:0:101::1/128
-            exit
-            no shutdown
-        exit
         interface "system"
             address 10.10.10.1/32
             ipv6
@@ -676,82 +669,15 @@ echo "ISIS Configuration"
                 interface-type point-to-point
                 no shutdown
             exit
+            interface "to-R3"
+                interface-type point-to-point
+                no shutdown
+            exit
             interface "to-R5"
                 interface-type point-to-point
                 no shutdown
             exit
-            interface "to-R3"
-                interface-type point-to-point
-                no shutdown
-            exit
             no shutdown
-        exit
-#--------------------------------------------------
-echo "ISIS (Inst: 1) Configuration"
-#--------------------------------------------------
-        isis 1
-            level-capability level-2
-            standard-multi-instance
-            advertise-router-capability as
-            loopfree-alternates
-                ti-lfa
-                    node-protect
-                exit
-            exit
-            no ipv4-routing
-            ipv6-routing mt
-            multi-topology
-                ipv6-unicast
-            exit
-            level 2
-                wide-metrics-only
-            exit
-            segment-routing-v6
-                micro-segment-locator "u-loc-1"
-                    level-capability level-2
-                    multi-topology mt2
-                    level 1
-                    exit
-                    level 2
-                    exit
-                exit
-                no shutdown
-            exit
-            interface "to-R2"
-                interface-type point-to-point
-                no shutdown
-            exit
-            interface "to-R3"
-                interface-type point-to-point
-                no shutdown
-            exit
-            interface "loopback-1"
-                no shutdown
-            exit
-            no shutdown
-        exit
-#--------------------------------------------------
-echo "MPLS Configuration"
-#--------------------------------------------------
-        mpls
-            shutdown
-            interface "system"
-                no shutdown
-            exit
-        exit
-#--------------------------------------------------
-echo "RSVP Configuration"
-#--------------------------------------------------
-        rsvp
-            shutdown
-            interface "system"
-                no shutdown
-            exit
-        exit
-#--------------------------------------------------
-echo "MPLS LSP Configuration"
-#--------------------------------------------------
-        mpls
         exit
     exit
 
@@ -762,32 +688,6 @@ echo "Service Configuration"
         customer 1 name "1" create
             description "Default customer"
         exit
-        vprn 1 name "1" customer 1 create
-            interface "loopback-1" create
-            exit
-        exit
-        vprn 1 name "1" customer 1 create
-            interface "loopback-1" create
-                address 1.1.1.1/32
-                loopback
-            exit
-            segment-routing-v6 1 create
-                micro-segment-locator "u-loc-1"
-                    function
-                        udt46 1
-                    exit
-                exit
-            exit
-            bgp-ipvpn
-                segment-routing-v6 bgp 1
-                    route-distinguisher 65000:1
-                    srv6-instance 1 default-locator "u-loc-1"
-                    vrf-target target:65000:1
-                    no shutdown
-                exit
-            exit
-            no shutdown
-        exit
     exit
 #--------------------------------------------------
 echo "Router (Service Side) Configuration"
@@ -797,28 +697,6 @@ echo "Router (Service Side) Configuration"
 echo "ISIS Configuration"
 #--------------------------------------------------
         isis 0
-            no shutdown
-        exit
-#--------------------------------------------------
-echo "ISIS (Inst: 1) Configuration"
-#--------------------------------------------------
-        isis 1
-            no shutdown
-        exit
-#--------------------------------------------------
-echo "BGP Configuration"
-#--------------------------------------------------
-        bgp
-            extended-nh-encoding vpn-ipv4
-            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
-            group "ibgp"
-                family vpn-ipv4 vpn-ipv6 evpn
-                type internal
-                peer-as 65000
-                neighbor fd00:0:108::8
-                    local-address fd00:0:101::1
-                exit
-            exit
             no shutdown
         exit
     exit
@@ -842,4 +720,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Wed Aug 12 09:55:56 2026 UTC
+# Finished Thu Aug 13 09:21:50 2026 UTC

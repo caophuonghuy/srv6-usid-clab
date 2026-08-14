@@ -25,13 +25,13 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Sun Aug  9 03:40:49 2026 UTC
+Time from clock is Thu Aug 13 03:45:19 2026 UTC
 Trace memory initialised
 Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Sun Aug 09 03:40:55 UTC 2026
+Current Time: Thu Aug 13 03:45:25 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
@@ -54,15 +54,18 @@ MPLS Label Range Configuration
 Segment Routing v6 Configuration
 Segment Routing Configuration
 ISIS Configuration
+ISIS (Inst: 1) Configuration
 MPLS Configuration
 RSVP Configuration
 MPLS LSP Configuration
 Service Configuration
 Router (Service Side) Configuration
 ISIS Configuration
+ISIS (Inst: 1) Configuration
+BGP Configuration
 Log all events for service vprn, log syslog tls-client-profile Configuration
 System Configuration Mode Configuration
-                      Executed 757 lines in 0.2 seconds from file "cf3:\config.cfg"
+                      Executed 845 lines in 0.2 seconds from file "cf3:\config.cfg"
 
 TiMOS-B-26.3.R2 both/x86_64 Nokia 7750 SR-1s Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.

@@ -25,22 +25,39 @@ Scheduler: using fair scheduler policy
 
 Running 64 bit architecture
 
-Time from clock is Sun Aug  9 03:40:50 2026 UTC
+Time from clock is Thu Aug 13 03:45:20 2026 UTC
 Trace memory initialised
 Initial DNS resolving preference is ipv4-only
 
 Looking for cf3:/bof.cfg ... OK, reading
 
-Current Time: Sun Aug 09 03:40:54 UTC 2026
+Current Time: Thu Aug 13 03:45:24 UTC 2026
 Loading TiMOS License for 'TiMOS-B-26.3.R2' from location:
    'cf3:\license.txt' ... OK
 
 Loading primary configuration file "cf3:\config.cfg"
-Loaded 155 lines in 0.2 seconds from file "cf3:\config.cfg"
-WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli
-WARNING: MGMT_CORE #2204: Obsolete element - configure system grpc md-cli admin-state
-WARNING: MGMT_CORE #2204: Obsolete element - configure system security aaa local-profiles profile "administrative" grpc rpc-authorization md-cli-session
-Committing configuration ... finished in 0.0 seconds
+System Configuration
+System Security Configuration
+System Login Control Configuration
+Log Configuration
+System gRPC Configuration
+Oper-Groups (Declarations) Configuration
+Card Configuration
+Connector Configuration
+Port Configuration
+System Sync-If-Timing Configuration
+Management Router Configuration
+Router (Network Side) Configuration
+MPLS Label Range Configuration
+Segment Routing v6 Configuration
+Segment Routing Configuration
+ISIS (Inst: 1) Configuration
+Service Configuration
+Router (Service Side) Configuration
+ISIS (Inst: 1) Configuration
+Log all events for service vprn, log syslog tls-client-profile Configuration
+System Configuration Mode Configuration
+ 512 lines                      Executed 512 lines in 0.0 seconds from file "cf3:\config.cfg"
 
 TiMOS-B-26.3.R2 both/x86_64 Nokia 7250 IXR-e3c Copyright (c) 2000-2026 Nokia.
 All rights reserved. All use subject to applicable license agreements.

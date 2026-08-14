@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug 13 02:43:35 2026 UTC
+# Generated Thu Aug 13 09:21:48 2026 UTC
 
 exit all
 configure
@@ -11,7 +11,7 @@ configure
 echo "System Configuration"
 #--------------------------------------------------
     system
-        name "agg3"
+        name "ixr-sgw-ABR3"
         netconf
             listen
                 no shutdown
@@ -366,13 +366,19 @@ echo "Management Router Configuration"
 echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
-#--------------------------------------------------
-echo "MPLS Label Range Configuration"
-#--------------------------------------------------
-        mpls-labels
-            reserved-label-block "lbl-blk-uSID"
-                start-label 20000 end-label 20999
+        policy-options
+            begin
+            prefix-list "summary-subnet-isis-0"
+                prefix fd00::/40 exact
             exit
+            prefix-list "summary-subnet-isis-1"
+                prefix fd00:0:100::/40 exact
+            exit
+            policy-statement "advert-summary-isis-0-to-1"
+            exit
+            policy-statement "advert-summary-isis-1-to-0"
+            exit
+            commit
         exit
 #--------------------------------------------------
 echo "Segment Routing v6 Configuration"
@@ -446,6 +452,12 @@ echo "Segment Routing v6 Configuration"
             exit
             no shutdown
         exit
+        autonomous-system 65000
+#--------------------------------------------------
+echo "Aggregate Configuration"
+#--------------------------------------------------
+        aggregate fd00::/40
+        aggregate fd00:0:100::/40
 #--------------------------------------------------
 echo "Segment Routing Configuration"
 #--------------------------------------------------
@@ -471,6 +483,7 @@ echo "ISIS Configuration"
         isis 0
             level-capability level-2
             standard-multi-instance
+            export "advert-summary-isis-1-to-0"
             advertise-router-capability as
             loopfree-alternates
                 ti-lfa
@@ -516,6 +529,7 @@ echo "ISIS (Inst: 1) Configuration"
         isis 1
             level-capability level-2
             standard-multi-instance
+            export "advert-summary-isis-0-to-1"
             advertise-router-capability as
             loopfree-alternates
                 ti-lfa
@@ -567,6 +581,31 @@ echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
 #--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            policy-statement "advert-summary-isis-0-to-1"
+                entry 10
+                    from
+                        prefix-list "summary-subnet-isis-0"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            policy-statement "advert-summary-isis-1-to-0"
+                entry 10
+                    from
+                        prefix-list "summary-subnet-isis-1"
+                    exit
+                    action accept
+                    exit
+                exit
+            exit
+            commit
+        exit
+#--------------------------------------------------
 echo "ISIS Configuration"
 #--------------------------------------------------
         isis 0
@@ -576,6 +615,31 @@ echo "ISIS Configuration"
 echo "ISIS (Inst: 1) Configuration"
 #--------------------------------------------------
         isis 1
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            family vpn-ipv4 vpn-ipv6 evpn
+            extended-nh-encoding vpn-ipv4
+            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
+            group "ibgp"
+                family vpn-ipv4 vpn-ipv6 evpn
+                type internal
+                cluster 10.10.10.3
+                peer-as 65000
+                neighbor fd00:0:5::5
+                exit
+                neighbor fd00:0:6::6
+                exit
+                neighbor fd00:0:107::7
+                    local-address fd00:0:103::3
+                exit
+                neighbor fd00:0:108::8
+                    local-address fd00:0:103::3
+                exit
+            exit
             no shutdown
         exit
     exit
@@ -596,4 +660,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Thu Aug 13 02:43:35 2026 UTC
+# Finished Thu Aug 13 09:21:48 2026 UTC

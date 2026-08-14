@@ -15,18 +15,18 @@ all:
         ansible_password: NokiaSros1!
       hosts:
         acc7:
-          ansible_host: 172.50.50.6
-        acc8:
           ansible_host: 172.50.50.3
-        agg3:
-          ansible_host: 172.50.50.5
-        agg4:
-          ansible_host: 172.50.50.8
-        pe5:
-          ansible_host: 172.50.50.2
-        pe6:
-          ansible_host: 172.50.50.4
-        sr1:
-          ansible_host: 172.50.50.9
-        sr2:
+        acc8:
           ansible_host: 172.50.50.7
+        agg3:
+          ansible_host: 172.50.50.4
+        agg4:
+          ansible_host: 172.50.50.6
+        pe5:
+          ansible_host: 172.50.50.9
+        pe6:
+          ansible_host: 172.50.50.8
+        sr1:
+          ansible_host: 172.50.50.2
+        sr2:
+          ansible_host: 172.50.50.5

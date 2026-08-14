@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Tue Aug 11 04:05:03 2026 UTC
+# Generated Wed Aug 12 09:01:21 2026 UTC
 
 exit all
 configure
@@ -232,10 +232,16 @@ echo "Card Configuration"
 echo "Connector Configuration"
 #--------------------------------------------------
     port 1/1/c1
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c2
-        shutdown
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
     exit
     port 1/1/c3
         shutdown
@@ -318,6 +324,16 @@ echo "Connector Configuration"
 #--------------------------------------------------
 echo "Port Configuration"
 #--------------------------------------------------
+    port 1/1/c1/1
+        ethernet
+        exit
+        no shutdown
+    exit
+    port 1/1/c2/1
+        ethernet
+        exit
+        no shutdown
+    exit
     port A/1
     exit
     port A/gnss
@@ -342,7 +358,117 @@ echo "Management Router Configuration"
 echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "MPLS Label Range Configuration"
+#--------------------------------------------------
+        mpls-labels
+            reserved-label-block "lbl-blk-uSID"
+                start-label 20000 end-label 20999
+            exit
+        exit
+#--------------------------------------------------
+echo "Segment Routing v6 Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                source-address fd00:0:7::7
+                micro-segment
+                    block "uSID-blk-0"
+                        prefix
+                            ip-prefix fd00::/32
+                        exit
+                        static-function
+                            max-entries 256
+                        exit
+                        no shutdown
+                    exit
+                exit
+                micro-segment-locator "u-loc-1"
+                    block "uSID-blk-0"
+                    un
+                        value 263
+                    exit
+                    no shutdown
+                exit
+            exit
+        exit
         interface "system"
+            ipv6
+                address fd00:0:107::7/128
+            exit
+            no shutdown
+        exit
+        interface "to-acc8"
+            port 1/1/c2/1
+            ipv6
+            exit
+            ingress
+            exit
+            no shutdown
+        exit
+        interface "to-agg3"
+            port 1/1/c1/1
+            ipv6
+            exit
+            ingress
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "Segment Routing Configuration"
+#--------------------------------------------------
+        segment-routing
+            segment-routing-v6
+                base-routing-instance
+                    micro-segment-locator "u-loc-1"
+                        function
+                            ua-auto-allocate srh-mode psp protection protected
+                        exit
+                    exit
+                exit
+            exit
+        exit
+#--------------------------------------------------
+echo "ISIS (Inst: 1) Configuration"
+#--------------------------------------------------
+        isis 1
+            system-id 0007.0007.0007
+            level-capability level-2
+            standard-multi-instance
+            advertise-router-capability as
+            loopfree-alternates
+                ti-lfa
+                    node-protect
+                exit
+            exit
+            no ipv4-routing
+            ipv6-routing mt
+            multi-topology
+                ipv6-unicast
+            exit
+            level 2
+                wide-metrics-only
+            exit
+            segment-routing-v6
+                micro-loop-avoidance
+                micro-segment-locator "u-loc-1"
+                    level-capability level-2
+                    multi-topology mt2
+                    level 1
+                    exit
+                    level 2
+                    exit
+                exit
+                no shutdown
+            exit
+            interface "to-agg3"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-acc8"
+                interface-type point-to-point
+                no shutdown
+            exit
             no shutdown
         exit
     exit
@@ -359,6 +485,12 @@ echo "Service Configuration"
 echo "Router (Service Side) Configuration"
 #--------------------------------------------------
     router Base
+#--------------------------------------------------
+echo "ISIS (Inst: 1) Configuration"
+#--------------------------------------------------
+        isis 1
+            no shutdown
+        exit
     exit
 
 #--------------------------------------------------
@@ -377,4 +509,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Tue Aug 11 04:05:04 2026 UTC
+# Finished Wed Aug 12 09:01:21 2026 UTC

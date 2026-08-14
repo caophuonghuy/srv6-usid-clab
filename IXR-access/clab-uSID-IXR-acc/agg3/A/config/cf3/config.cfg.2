@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Tue Aug 11 08:11:16 2026 UTC
+# Generated Thu Aug 13 03:45:25 2026 UTC
 
 exit all
 configure
@@ -530,11 +530,27 @@ echo "ISIS (Inst: 1) Configuration"
             level 2
                 wide-metrics-only
             exit
+            segment-routing-v6
+                micro-loop-avoidance
+                micro-segment-locator "u-loc-1"
+                    level-capability level-2
+                    multi-topology mt2
+                    level 1
+                    exit
+                    level 2
+                    exit
+                exit
+                no shutdown
+            exit
             interface "to-R1"
                 interface-type point-to-point
                 no shutdown
             exit
             interface "to-R4"
+                interface-type point-to-point
+                no shutdown
+            exit
+            interface "to-R7"
                 interface-type point-to-point
                 no shutdown
             exit
@@ -584,4 +600,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Tue Aug 11 08:11:16 2026 UTC
+# Finished Thu Aug 13 03:45:25 2026 UTC

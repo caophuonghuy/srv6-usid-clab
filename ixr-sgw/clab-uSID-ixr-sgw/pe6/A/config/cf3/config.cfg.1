@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Sat Aug  8 09:55:31 2026 UTC
+# Generated Thu Aug 13 09:21:50 2026 UTC
 
 exit all
 configure
@@ -11,7 +11,7 @@ configure
 echo "System Configuration"
 #--------------------------------------------------
     system
-        name "uSID-pe6"
+        name "ixr-sgw-PE6"
         power-shelf 1
             power-shelf-type ps-a4-shelf-dc
             power-module 1
@@ -581,13 +581,13 @@ echo "Segment Routing v6 Configuration"
             no shutdown
         exit
         interface "to-R2"
-            port 1/1/c2/1
+            port 1/1/c1/1
             ipv6
             exit
             no shutdown
         exit
         interface "to-R5"
-            port 1/1/c5/1
+            port 1/1/c2/1
             ipv6
             exit
             no shutdown
@@ -678,7 +678,9 @@ echo "BGP Configuration"
                 family vpn-ipv4 vpn-ipv6 evpn
                 type internal
                 peer-as 65000
-                neighbor fd00:0:a::a
+                neighbor fd00:0:3::3
+                exit
+                neighbor fd00:0:4::4
                 exit
             exit
             no shutdown
@@ -704,4 +706,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Sat Aug  8 09:55:31 2026 UTC
+# Finished Thu Aug 13 09:21:50 2026 UTC

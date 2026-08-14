@@ -3,7 +3,7 @@
 # Built on Wed Apr 22 19:19:59 UTC 2026 by builder in /builds/263B/R2/panos
 # Configuration format version 26.3 revision 0
 
-# Generated Thu Aug 13 02:35:56 2026 UTC
+# Generated Thu Aug 13 09:21:48 2026 UTC
 
 exit all
 configure
@@ -11,7 +11,7 @@ configure
 echo "System Configuration"
 #--------------------------------------------------
     system
-        name "acc7"
+        name "ixr-sgw-ACC7"
         netconf
             listen
                 no shutdown
@@ -156,7 +156,7 @@ echo "System Security Configuration"
                 attempts 64 time 5 lockout 10
             exit
             user "admin"
-                password "$2y$10$FUV3C1jLquxaPhsCKda.o.ztYJKF0dpt.b214iJX5vg/afhy2z8z2"
+                password "$2y$10$5FlGW.m.4Xl9Fn8TDpHf2.pzhKhXlLKiRa2X2Wq.9tnbOXKBqMdee"
                 access console netconf grpc
                 no restricted-to-home
                 public-keys
@@ -359,19 +359,11 @@ echo "Router (Network Side) Configuration"
 #--------------------------------------------------
     router Base
 #--------------------------------------------------
-echo "MPLS Label Range Configuration"
-#--------------------------------------------------
-        mpls-labels
-            reserved-label-block "lbl-blk-uSID"
-                start-label 20000 end-label 20999
-            exit
-        exit
-#--------------------------------------------------
 echo "Segment Routing v6 Configuration"
 #--------------------------------------------------
         segment-routing
             segment-routing-v6
-                source-address fd00:0:7::7
+                source-address fd00:0:107::7
                 micro-segment
                     block "uSID-blk-0"
                         prefix
@@ -393,6 +385,7 @@ echo "Segment Routing v6 Configuration"
             exit
         exit
         interface "system"
+            address 10.10.10.7/32
             ipv6
                 address fd00:0:107::7/128
             exit
@@ -414,6 +407,7 @@ echo "Segment Routing v6 Configuration"
             exit
             no shutdown
         exit
+        autonomous-system 65000
 #--------------------------------------------------
 echo "Segment Routing Configuration"
 #--------------------------------------------------
@@ -432,7 +426,6 @@ echo "Segment Routing Configuration"
 echo "ISIS (Inst: 1) Configuration"
 #--------------------------------------------------
         isis 1
-            system-id 0007.0007.0007
             level-capability level-2
             standard-multi-instance
             advertise-router-capability as
@@ -480,6 +473,32 @@ echo "Service Configuration"
         customer 1 name "1" create
             description "Default customer"
         exit
+        vprn 5 name "e2e-vprn5" customer 1 create
+            interface "loopback-1" create
+            exit
+        exit
+        vprn 5 name "e2e-vprn5" customer 1 create
+            interface "loopback-1" create
+                address 10.10.5.7/32
+                loopback
+            exit
+            segment-routing-v6 1 create
+                micro-segment-locator "u-loc-1"
+                    function
+                        udt46 1
+                    exit
+                exit
+            exit
+            bgp-ipvpn
+                segment-routing-v6 bgp 1
+                    route-distinguisher 65000:5
+                    srv6-instance 1 default-locator "u-loc-1"
+                    vrf-target target:65000:5
+                    no shutdown
+                exit
+            exit
+            no shutdown
+        exit
     exit
 #--------------------------------------------------
 echo "Router (Service Side) Configuration"
@@ -489,6 +508,24 @@ echo "Router (Service Side) Configuration"
 echo "ISIS (Inst: 1) Configuration"
 #--------------------------------------------------
         isis 1
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            family vpn-ipv4 vpn-ipv6 evpn
+            extended-nh-encoding vpn-ipv4
+            advertise-ipv6-next-hops vpn-ipv4 vpn-ipv6
+            group "ibgp"
+                family vpn-ipv4 vpn-ipv6 evpn
+                type internal
+                peer-as 65000
+                neighbor fd00:0:103::3
+                exit
+                neighbor fd00:0:104::4
+                exit
+            exit
             no shutdown
         exit
     exit
@@ -509,4 +546,4 @@ echo "System Configuration Mode Configuration"
 
 exit all
 
-# Finished Thu Aug 13 02:35:56 2026 UTC
+# Finished Thu Aug 13 09:21:48 2026 UTC
