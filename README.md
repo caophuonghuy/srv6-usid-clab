@@ -3,7 +3,7 @@
 
 > This repo is few containerlabs about SRv6 with uSID compression. For now, all labs are set up with Nokia SR OS router.
 
-## 📌 Contents (to be updated)
+## 📌 Contents
 
 - [Introduction](#-introduction)
 - [Project structure](#-project-structure)
